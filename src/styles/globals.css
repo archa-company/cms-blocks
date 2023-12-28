@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body > #__next {
+  height: 100%;
+}
+
+.banner-lgpd-consent-container {
+  display: none !important;
+}
+
+.prose h2,
+.prose h3 {
+  @apply table bg-gradient-to-r from-purple-700 via-rose-600 to-orange-500 bg-clip-text font-black text-transparent;
+}
+
+.prose a {
+  @apply font-bold text-purple-700 transition-all duration-200;
+}
+
+.prose a:hover {
+  @apply text-orange-500;
+}
+
+.prose strong,
+.prose b {
+  @apply font-extrabold;
+}
+
+.top-recents {
+  padding: 0 10px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  height: 433px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.top-recents-box {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
