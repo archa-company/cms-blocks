@@ -15,6 +15,7 @@
     "semantic-release": "semantic-release"
   },
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "devDependencies": {
