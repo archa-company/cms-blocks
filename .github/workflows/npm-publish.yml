@@ -3,6 +3,9 @@
 
 name: Node.js Package
 
+on:
+  branch: main
+
 jobs:
   build:
     runs-on: ubuntu-latest
