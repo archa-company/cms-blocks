@@ -1,6 +1,6 @@
 {
   "name": "cms-blocks",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -15,7 +15,6 @@
     "semantic-release": "semantic-release"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "devDependencies": {

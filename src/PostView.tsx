@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { setCookie, getCookie } from 'cookies-next';
 
 import ImageComponent from './Image';
+import classNames from 'classnames';
 
 export interface IPostViewProps {
   id: number;
@@ -24,6 +25,7 @@ export interface IPostViewProps {
   hat?: string;
   sendLike: (e: any) => Promise<void>;
   errorSrc: string;
+  postContentClass?: string;
 }
 export interface ICreditProps {
   id: number;
@@ -44,6 +46,7 @@ export default function PostView({
   likes,
   sendLike,
   errorSrc,
+  postContentClass,
 }: IPostViewProps) {
   let [isDocument, setDocument] = useState(false);
   let [liked, setLiked] = useState(false);
@@ -100,7 +103,7 @@ export default function PostView({
 
   return (
     <div
-      className="my-9 flex w-full flex-col"
+      className={classNames('flex w-full flex-col', postContentClass ?? 'my-9')}
       style={{
         minWidth: '100%',
       }}

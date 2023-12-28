@@ -1,6 +1,7 @@
 'use client';
 import styled from 'styled-components';
 import { PostNews } from './types/Post';
+import classNames from 'classnames';
 
 export interface IRecentsView {
   title: string;
@@ -11,6 +12,10 @@ export interface IRecentsView {
   days: number;
   posts: PostNews[];
   lineColor?: string;
+  lineHeight?: string | number;
+  leftBallFunc?: (index: number) => React.ReactNode;
+  titleClass?: any;
+  postBlockClass?: string;
 }
 
 export default function RecentsView({
@@ -20,6 +25,10 @@ export default function RecentsView({
   alignment = 'none',
   posts,
   lineColor,
+  lineHeight,
+  leftBallFunc,
+  titleClass,
+  postBlockClass,
 }: IRecentsView) {
   return (
     <TopRecentsBlock
@@ -35,11 +44,15 @@ export default function RecentsView({
         {posts?.map((x, y) => (
           <div key={y}>
             <a href={x.uri || x.link} key={y}>
-              <div className="my-5 flex flex-auto">
+              <div className={classNames('my-5 flex flex-auto', postBlockClass)}>
                 <div className="inline-block">
-                  <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-full bg-black text-center font-bold text-white">
-                    <p className=" m-auto p-0 text-center">{y + 1}</p>{' '}
-                  </div>
+                  {leftBallFunc != null ? (
+                    leftBallFunc(y + 1)
+                  ) : (
+                    <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-full bg-black text-center font-bold text-white">
+                      <p className=" m-auto p-0 text-center">{y + 1}</p>{' '}
+                    </div>
+                  )}
                 </div>
                 <div
                   style={{
@@ -47,6 +60,7 @@ export default function RecentsView({
                     backgroundColor: backgroundColor || 'var(--primary-color)',
                     marginLeft: '-11px',
                     padding: '5px 8px',
+                    ...titleClass,
                   }}
                 >
                   <p className="text-[22px] font-semibold sm:text-lg">{x.title}</p>
@@ -59,7 +73,7 @@ export default function RecentsView({
                 <div
                   style={{
                     width: '90%',
-                    height: '3px',
+                    height: lineHeight ?? '3px',
                     backgroundColor: lineColor ?? 'var(--second-color)',
                   }}
                 ></div>

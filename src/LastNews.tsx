@@ -44,6 +44,7 @@ export interface LastNewsOptionsProps {
   orderBy?: 'createdAt' | 'title';
   backgroundColor?: string;
   textColor?: string;
+  textHatColor?: string;
   fontSize?: 'small' | 'medium' | 'large' | 'x-large';
   horizontal?: boolean;
   color?: string;
@@ -179,6 +180,7 @@ export function PostCard({
   featuredImageSizeWidth,
   backgroundColor,
   textColor,
+  textHatColor,
   fontSize,
   horizontal,
   Logo,
@@ -281,8 +283,8 @@ export function PostCard({
         >
           <div
             className={classNames(
-              'md-mw:flex-wrap my-2 flex w-full max-w-full flex-1 items-center sm-mw:!flex-col sm-mw:items-start',
-              horizontal ? 'md:!flex-row' : '',
+              'md-mw:flex-wrap my-2 flex w-full max-w-full flex-1 items-center sm-mw:!flex-col sm-mw:!items-start',
+              horizontal ? '!items-start md:!flex-row' : '',
               featuredImageAlign == 'right'
                 ? 'flex-row-reverse items-center'
                 : featuredImageAlign == 'center'
@@ -313,7 +315,12 @@ export function PostCard({
                     if (x.name != 'conteudo-publicitario')
                       return (
                         <div className="mb-2" key={x.id}>
-                          <span className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '')}>
+                          <span
+                            className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '')}
+                            style={{
+                              color: textHatColor,
+                            }}
+                          >
                             {x.name == 'Sem categoria' ? 'GazzConecta' : x.name}
                           </span>
                         </div>
@@ -322,7 +329,12 @@ export function PostCard({
 
                 {!postData?.hat && postData && postData?.category && (
                   <div className="mb-2">
-                    <span className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '')}>
+                    <span
+                      className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '')}
+                      style={{
+                        color: textHatColor,
+                      }}
+                    >
                       {postData?.category == 'Sem categoria' ? 'GazzConecta' : postData?.category}
                     </span>
                   </div>
@@ -333,7 +345,7 @@ export function PostCard({
                     <span
                       className={classNames('text-sm font-light text-black', !!fontSize ? fontSizeOb[fontSize!] : '')}
                       style={{
-                        color: textColor ?? '',
+                        color: textHatColor ?? '',
                       }}
                     >
                       {postData?.hat}

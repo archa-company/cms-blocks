@@ -20,6 +20,7 @@ export interface INewsLetterView {
   termsOfUse: string;
   backgroundColor: string;
   color: string;
+  buttonColor: string;
   formSubmit: (url: string, z: any) => Promise<void>;
   domain: string;
 }
@@ -34,6 +35,7 @@ export default function NewsLetterView({
   termsOfUse,
   backgroundColor,
   color,
+  buttonColor,
   formSubmit,
   domain,
 }: INewsLetterView) {

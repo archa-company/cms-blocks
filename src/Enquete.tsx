@@ -1,4 +1,5 @@
 'use client';
+import classNames from 'classnames';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -11,6 +12,7 @@ export interface IEnquenteView {
   url: string;
   color?: string;
   backgroundColor: string;
+  buttonClass: string;
   id: string;
   formSubmit: (url: string, { id, siteId, choice }) => Promise<any[]>;
   siteId: string;
@@ -24,6 +26,7 @@ export default function EnquenteView({
   url,
   color,
   backgroundColor,
+  buttonClass,
   id,
   formSubmit,
   siteId,
@@ -134,7 +137,11 @@ export default function EnquenteView({
                 : 'center'
             } px-3`}
           >
-            <button disabled={isSended} type="submit" className="rounded bg-black px-10 py-1 text-white">
+            <button
+              disabled={isSended}
+              type="submit"
+              className={classNames('rounded bg-black px-10 py-1 text-white', buttonClass)}
+            >
               {isLoading ? 'Enviando' : isSended ? 'Enviado!' : button ?? 'Enviar'}
             </button>
           </div>
