@@ -1,4 +1,5 @@
 'use client';
+import classNames from 'classnames';
 import Link from 'next/link';
 // import { sendDataElastic } from './functions'
 import { useState } from 'react';
@@ -20,7 +21,8 @@ export interface INewsLetterView {
   termsOfUse: string;
   backgroundColor: string;
   color: string;
-  buttonColor: string;
+  buttonColor?: string;
+  buttonClass?: string;
   formSubmit: (url: string, z: any) => Promise<void>;
   domain: string;
 }
@@ -36,6 +38,7 @@ export default function NewsLetterView({
   backgroundColor,
   color,
   buttonColor,
+  buttonClass,
   formSubmit,
   domain,
 }: INewsLetterView) {
@@ -188,8 +191,8 @@ export default function NewsLetterView({
               } items-center`}
             >
               <button
-                className="rounded px-10 py-1 font-semibold text-black"
-                style={{ backgroundColor: color ?? 'var(--primary-color)' }}
+                className={classNames('rounded px-10 py-1 font-semibold text-black', buttonClass)}
+                style={{ backgroundColor: buttonColor ?? color ?? 'var(--primary-color)' }}
                 type="submit"
                 disabled={isSended}
               >

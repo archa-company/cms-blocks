@@ -51,6 +51,8 @@ export interface LastNewsOptionsProps {
   Logo?: any;
   sendLike: (e: any) => Promise<void>;
   errorSrc: string;
+  placeholderVal?: string;
+  tagClass?: string;
 }
 export default function LastNews({
   lastNews,
@@ -76,7 +78,11 @@ export default function LastNews({
   horizontal,
   Logo,
   sendLike,
+  placeholderVal,
+  tagClass,
+  textHatColor,
 }: LastNewsProps) {
+  console.log();
   if (!lastNews?.length && !posts?.length)
     return <span className="text-base underline">Não foi possível listar últimas notícias</span>;
 
@@ -104,6 +110,9 @@ export default function LastNews({
               fontSize={fontSize}
               errorSrc={errorSrc}
               Logo={Logo}
+              placeholderVal={placeholderVal}
+              tagClass={tagClass}
+              textHatColor={textHatColor}
             />
           ))}
       </div>
@@ -154,6 +163,9 @@ export default function LastNews({
                 fontSize={fontSize}
                 errorSrc={errorSrc}
                 Logo={Logo}
+                placeholderVal={placeholderVal}
+                tagClass={tagClass}
+                textHatColor={textHatColor}
               />
             ))}
       </div>
@@ -186,6 +198,8 @@ export function PostCard({
   Logo,
   sendLike,
   errorSrc,
+  placeholderVal,
+  tagClass,
 }: IPostCardProps) {
   const [stateDocument, setStateDocument] = useState(false);
   let [postData, setPostData] = useState(post);
@@ -268,6 +282,8 @@ export function PostCard({
     </div>
   );
 
+  console.log(textColor, textHatColor);
+
   function VerticalType() {
     return (
       <div className={classNames(horizontal ? 'flex w-full flex-col md:max-w-[365px] md:flex-row' : 'flex flex-col')}>
@@ -316,12 +332,16 @@ export function PostCard({
                       return (
                         <div className="mb-2" key={x.id}>
                           <span
-                            className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '')}
+                            className={classNames(
+                              'text-sm font-light',
+                              !!fontSize ? fontSizeOb[fontSize!] : '',
+                              tagClass,
+                            )}
                             style={{
                               color: textHatColor,
                             }}
                           >
-                            {x.name == 'Sem categoria' ? 'GazzConecta' : x.name}
+                            {x.name == 'Sem categoria' ? placeholderVal ?? 'GazzConecta' : x.name}
                           </span>
                         </div>
                       );
@@ -330,12 +350,12 @@ export function PostCard({
                 {!postData?.hat && postData && postData?.category && (
                   <div className="mb-2">
                     <span
-                      className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '')}
+                      className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '', tagClass)}
                       style={{
                         color: textHatColor,
                       }}
                     >
-                      {postData?.category == 'Sem categoria' ? 'GazzConecta' : postData?.category}
+                      {postData?.category == 'Sem categoria' ? placeholderVal ?? 'GazzConecta' : postData?.category}
                     </span>
                   </div>
                 )}
@@ -372,7 +392,7 @@ export function PostCard({
                       !!fontSize ? fontSizeOb[fontSize!] : '',
                     )}
                     style={{
-                      color: textColor ?? '',
+                      color: textColor,
                     }}
                   >
                     {postData?.excerpt}
