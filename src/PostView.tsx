@@ -26,6 +26,7 @@ export interface IPostViewProps {
   sendLike: (e: any) => Promise<void>;
   errorSrc: string;
   postContentClass?: string;
+  buttonClass?: string;
 }
 export interface ICreditProps {
   id: number;
@@ -47,6 +48,7 @@ export default function PostView({
   sendLike,
   errorSrc,
   postContentClass,
+  buttonClass,
 }: IPostViewProps) {
   let [isDocument, setDocument] = useState(false);
   let [liked, setLiked] = useState(false);
@@ -150,7 +152,7 @@ export default function PostView({
             </p>
           </div>
         </a>
-        <div className="flex items-center justify-between">
+        <div className={classNames('flex items-center justify-between', buttonClass)}>
           <div className="flex items-center">
             {!!credit && credit.length && (
               <div className="user-image mr-1.5" style={{ position: 'relative' }}>

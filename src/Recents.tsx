@@ -15,6 +15,7 @@ export interface IRecentsView {
   lineHeight?: string | number;
   leftBallFunc?: (index: number) => React.ReactNode;
   titleClass?: any;
+  titleChildClass?: any;
   postBlockClass?: string;
 }
 
@@ -28,6 +29,7 @@ export default function RecentsView({
   lineHeight,
   leftBallFunc,
   titleClass,
+  titleChildClass,
   postBlockClass,
 }: IRecentsView) {
   return (
@@ -56,14 +58,18 @@ export default function RecentsView({
                 </div>
                 <div
                   style={{
-                    color: color || 'black',
                     backgroundColor: backgroundColor || 'var(--primary-color)',
                     marginLeft: '-11px',
                     padding: '5px 8px',
                     ...titleClass,
                   }}
                 >
-                  <p className="text-[22px] font-semibold sm:text-lg">{x.title}</p>
+                  <p
+                    className="text-[22px] font-semibold sm:text-lg"
+                    style={{ color: color || 'black', ...titleChildClass }}
+                  >
+                    {x.title}
+                  </p>
                   {x.author && <p>{x.author.name}</p>}
                 </div>
               </div>

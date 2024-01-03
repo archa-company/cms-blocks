@@ -53,6 +53,7 @@ export interface LastNewsOptionsProps {
   errorSrc: string;
   placeholderVal?: string;
   tagClass?: string;
+  isMoreThanTwo?: boolean;
 }
 export default function LastNews({
   lastNews,
@@ -81,6 +82,7 @@ export default function LastNews({
   placeholderVal,
   tagClass,
   textHatColor,
+  isMoreThanTwo,
 }: LastNewsProps) {
   console.log();
   if (!lastNews?.length && !posts?.length)
@@ -88,59 +90,15 @@ export default function LastNews({
 
   return posts != null && posts?.length > 0 ? (
     <div className="my-5 max-w-[1440px]">
-      <div className={classNames('mt-4 flex flex-col', horizontal ? 'flex-wrap justify-center md:flex-row' : '')}>
-        {posts &&
-          posts.map((post: PostNews, index: number) => (
-            <PostCard
-              horizontal={horizontal}
-              sendLike={async (e) => await sendLike(e)}
-              key={post.id}
-              post={post}
-              withImage={false}
-              withMetas={true}
-              haveBorder={index != posts.length - 1}
-              addLinkToFeaturedImage={true}
-              displayAuthor={true}
-              displayFeaturedImage={post.showThumbnail}
-              displayPostContent={displayPostContent}
-              displayPostContentRadio={displayPostContentRadio}
-              featuredImageAlign={'left'}
-              backgroundColor={backgroundColor}
-              textColor={textColor}
-              fontSize={fontSize}
-              errorSrc={errorSrc}
-              Logo={Logo}
-              placeholderVal={placeholderVal}
-              tagClass={tagClass}
-              textHatColor={textHatColor}
-            />
-          ))}
-      </div>
-    </div>
-  ) : (
-    <div className="my-5 w-full">
-      <div className={classNames('mt-4 flex flex-col', horizontal ? 'flex-wrap justify-center md:flex-row' : '')}>
-        {lastNews &&
-          lastNews
-            .filter((x) =>
-              !!categories ? x.taxonomies?.category.some((x: any) => categories.some((y) => x.id === y.id)) : true,
-            )
-            .filter((x) => (!!selectedAuthor ? x.taxonomies?.credit.some((x: any) => x.id === selectedAuthor) : true))
-            .sort(
-              order == 'asc'
-                ? (objA, objB) => {
-                    let a = Date.parse(objA.createdAt!),
-                      b = Date.parse(objB.createdAt!);
-                    return orderBy == 'title' ? objB.title.localeCompare(objA.title) : a - b;
-                  }
-                : (objA, objB) => {
-                    let a = Date.parse(objA.createdAt!),
-                      b = Date.parse(objB.createdAt!);
-                    return orderBy == 'title' ? objA.title.localeCompare(objB.title) : b - a;
-                  },
-            )
-            .slice(0, postsToShow ?? 5)
-            .map((post: PostNews, index: number) => (
+      {posts && (
+        <div
+          className={classNames(
+            'mt-4 flex flex-col',
+            horizontal ? `${posts.length > 2 ? 'flex-wrap justify-center' : 'justify-between'} md:flex-row` : '',
+          )}
+        >
+          {posts &&
+            posts.map((post: PostNews, index: number) => (
               <PostCard
                 horizontal={horizontal}
                 sendLike={async (e) => await sendLike(e)}
@@ -148,16 +106,13 @@ export default function LastNews({
                 post={post}
                 withImage={false}
                 withMetas={true}
-                haveBorder={index != lastNews.length - 1}
-                addLinkToFeaturedImage={addLinkToFeaturedImage}
-                displayAuthor={displayAuthor}
-                displayFeaturedImage={displayFeaturedImage}
+                haveBorder={index != posts.length - 1}
+                addLinkToFeaturedImage={true}
+                displayAuthor={true}
+                displayFeaturedImage={post.showThumbnail}
                 displayPostContent={displayPostContent}
                 displayPostContentRadio={displayPostContentRadio}
-                excerptLength={excerptLength}
-                featuredImageAlign={featuredImageAlign}
-                featuredImageSizeHeight={featuredImageSizeHeight}
-                featuredImageSizeWidth={featuredImageSizeWidth}
+                featuredImageAlign={'left'}
                 backgroundColor={backgroundColor}
                 textColor={textColor}
                 fontSize={fontSize}
@@ -166,9 +121,72 @@ export default function LastNews({
                 placeholderVal={placeholderVal}
                 tagClass={tagClass}
                 textHatColor={textHatColor}
+                isMoreThanTwo={posts.length > 2}
               />
             ))}
-      </div>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div className="my-5 w-full">
+      {lastNews && (
+        <div
+          className={classNames(
+            'mt-4 flex flex-col',
+            horizontal ? ` md:flex-row ${lastNews.length > 2 ? 'flex-wrap justify-center' : 'justify-between'}` : '',
+          )}
+        >
+          {lastNews &&
+            lastNews
+              .filter((x) =>
+                !!categories ? x.taxonomies?.category.some((x: any) => categories.some((y) => x.id === y.id)) : true,
+              )
+              .filter((x) => (!!selectedAuthor ? x.taxonomies?.credit.some((x: any) => x.id === selectedAuthor) : true))
+              .sort(
+                order == 'asc'
+                  ? (objA, objB) => {
+                      let a = Date.parse(objA.createdAt!),
+                        b = Date.parse(objB.createdAt!);
+                      return orderBy == 'title' ? objB.title.localeCompare(objA.title) : a - b;
+                    }
+                  : (objA, objB) => {
+                      let a = Date.parse(objA.createdAt!),
+                        b = Date.parse(objB.createdAt!);
+                      return orderBy == 'title' ? objA.title.localeCompare(objB.title) : b - a;
+                    },
+              )
+              .slice(0, postsToShow ?? 5)
+              .map((post: PostNews, index: number) => (
+                <PostCard
+                  horizontal={horizontal}
+                  sendLike={async (e) => await sendLike(e)}
+                  key={post.id}
+                  post={post}
+                  withImage={false}
+                  withMetas={true}
+                  haveBorder={index != lastNews.length - 1}
+                  addLinkToFeaturedImage={addLinkToFeaturedImage}
+                  displayAuthor={displayAuthor}
+                  displayFeaturedImage={displayFeaturedImage}
+                  displayPostContent={displayPostContent}
+                  displayPostContentRadio={displayPostContentRadio}
+                  excerptLength={excerptLength}
+                  featuredImageAlign={featuredImageAlign}
+                  featuredImageSizeHeight={featuredImageSizeHeight}
+                  featuredImageSizeWidth={featuredImageSizeWidth}
+                  backgroundColor={backgroundColor}
+                  textColor={textColor}
+                  fontSize={fontSize}
+                  errorSrc={errorSrc}
+                  Logo={Logo}
+                  placeholderVal={placeholderVal}
+                  tagClass={tagClass}
+                  textHatColor={textHatColor}
+                  isMoreThanTwo={lastNews.length > 2}
+                />
+              ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -200,6 +218,7 @@ export function PostCard({
   errorSrc,
   placeholderVal,
   tagClass,
+  isMoreThanTwo,
 }: IPostCardProps) {
   const [stateDocument, setStateDocument] = useState(false);
   let [postData, setPostData] = useState(post);
@@ -282,11 +301,13 @@ export function PostCard({
     </div>
   );
 
-  console.log(textColor, textHatColor);
-
   function VerticalType() {
     return (
-      <div className={classNames(horizontal ? 'flex w-full flex-col md:max-w-[365px] md:flex-row' : 'flex flex-col')}>
+      <div
+        className={classNames(
+          horizontal ? `flex w-full flex-col md:flex-row ${isMoreThanTwo ? 'md:max-w-[365px]' : ''}` : 'flex flex-col',
+        )}
+      >
         <div
           className={classNames('flex flex-col', backgroundColor ? '' : 'bg-white')}
           style={
@@ -334,7 +355,7 @@ export function PostCard({
                           <span
                             className={classNames(
                               'text-sm font-light',
-                              !!fontSize ? fontSizeOb[fontSize!] : '',
+
                               tagClass,
                             )}
                             style={{
@@ -350,7 +371,11 @@ export function PostCard({
                 {!postData?.hat && postData && postData?.category && (
                   <div className="mb-2">
                     <span
-                      className={classNames('text-sm font-light', !!fontSize ? fontSizeOb[fontSize!] : '', tagClass)}
+                      className={classNames(
+                        'text-sm font-light',
+
+                        tagClass,
+                      )}
                       style={{
                         color: textHatColor,
                       }}
@@ -363,7 +388,7 @@ export function PostCard({
                 {postData?.hat && (
                   <div className="mb-2">
                     <span
-                      className={classNames('text-sm font-light text-black', !!fontSize ? fontSizeOb[fontSize!] : '')}
+                      className={classNames('text-sm font-light text-black', tagClass)}
                       style={{
                         color: textHatColor ?? '',
                       }}
@@ -414,27 +439,32 @@ export function PostCard({
                       }}
                     >
                       {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) &&
-                        postData?.taxonomies?.credit?.length === 1 && (
+                        (postData?.taxonomies?.credit?.length > 0 || postData?.credit.length > 0) && (
                           <div className="mr-2 overflow-hidden" style={{ height: 27, width: 27 }}>
-                            {postData?.taxonomies?.credit[0]?.url ? (
-                              <ImageComponent
-                                src={postData?.taxonomies?.credit[0]?.url}
-                                alt={postData?.taxonomies?.credit[0]?.name as string}
-                                width={27}
-                                height={27}
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  objectFit: 'contain',
-                                  objectPosition: 'center',
-                                }}
-                                className="overflow-hidden rounded-full"
-                                onError={(e: any) => {
-                                  e.currentTarget.onerror = null;
-                                  e.currentTarget.srcset = errorSrc;
-                                  e.currentTarget.src = errorSrc;
-                                }}
-                              />
+                            {postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url ? (
+                              <>
+                                <ImageComponent
+                                  src={postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url}
+                                  alt={
+                                    (postData?.taxonomies?.credit[0]?.name as string) ||
+                                    (postData?.credit[0]?.name as string)
+                                  }
+                                  width={27}
+                                  height={27}
+                                  style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                    objectPosition: 'center',
+                                  }}
+                                  className="overflow-hidden rounded-full"
+                                  onError={(e: any) => {
+                                    e.currentTarget.onerror = null;
+                                    e.currentTarget.srcset = errorSrc;
+                                    e.currentTarget.src = errorSrc;
+                                  }}
+                                />
+                              </>
                             ) : (
                               <>{Logo}</>
                             )}
@@ -558,12 +588,14 @@ export function PostCard({
                 }}
               >
                 {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) &&
-                  postData?.taxonomies?.credit?.length === 1 && (
+                  (postData?.taxonomies?.credit?.length > 0 || postData?.credit?.length > 0) && (
                     <div className="mr-2 overflow-hidden" style={{ height: 27, width: 27 }}>
-                      {postData?.taxonomies?.credit[0]?.url ? (
+                      {postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url ? (
                         <ImageComponent
-                          src={postData?.taxonomies?.credit[0]?.url}
-                          alt={postData?.taxonomies?.credit[0]?.name as string}
+                          src={postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url}
+                          alt={
+                            (postData?.taxonomies?.credit[0]?.name as string) || (postData?.credit[0]?.name as string)
+                          }
                           width={27}
                           height={27}
                           style={{
