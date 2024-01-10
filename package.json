@@ -15,7 +15,8 @@
     "semantic-release": "semantic-release"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
