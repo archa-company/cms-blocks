@@ -16,7 +16,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com/@matpdev"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
