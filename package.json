@@ -1,5 +1,5 @@
 {
-  "name": "cms-blocks",
+  "name": "@matpdev/cms-blocks",
   "version": "1.0.17",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
