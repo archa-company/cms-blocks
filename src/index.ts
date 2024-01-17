@@ -6,5 +6,16 @@ import PostView from './PostView';
 import LastNews from './LastNews';
 import Group from './Group';
 import DetailtsView from './Detailts';
+import CategoriesHeader from './CategoriesHeader';
 
-export { EnquenteView, NewsLetterView, ImageComponent, RecentsView, PostView, LastNews, Group, DetailtsView };
+export {
+  EnquenteView,
+  NewsLetterView,
+  ImageComponent,
+  RecentsView,
+  PostView,
+  LastNews,
+  Group,
+  DetailtsView,
+  CategoriesHeader,
+};
