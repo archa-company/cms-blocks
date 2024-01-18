@@ -1,6 +1,6 @@
 {
-  "name": "@matpdev/cms-blocks",
-  "version": "1.0.17",
+  "name": "cms-blocks",
+  "version": "1.0.21",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -15,8 +15,7 @@
     "semantic-release": "semantic-release"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/@matpdev"
+    "access": "public"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
