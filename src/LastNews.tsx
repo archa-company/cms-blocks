@@ -54,7 +54,9 @@ export interface LastNewsOptionsProps {
   placeholderVal?: string;
   tagClass?: string;
   isMoreThanTwo?: boolean;
+  withCategories?: boolean;
 }
+
 export default function LastNews({
   lastNews,
   postsToShow,
@@ -83,13 +85,13 @@ export default function LastNews({
   tagClass,
   textHatColor,
   isMoreThanTwo,
+  withCategories,
 }: LastNewsProps) {
-  console.log();
   if (!lastNews?.length && !posts?.length)
     return <span className="text-base underline">Não foi possível listar últimas notícias</span>;
 
   return posts != null && posts?.length > 0 ? (
-    <div className="my-5 max-w-[1440px]">
+    <div className="postlist my-5 max-w-[1440px]">
       {posts && (
         <div
           className={classNames(
@@ -122,13 +124,14 @@ export default function LastNews({
                 tagClass={tagClass}
                 textHatColor={textHatColor}
                 isMoreThanTwo={posts.length > 2}
+                withCategories={withCategories}
               />
             ))}
         </div>
       )}
     </div>
   ) : (
-    <div className="my-5 w-full">
+    <div className="postlist my-5 w-full">
       {lastNews && (
         <div
           className={classNames(
@@ -183,6 +186,7 @@ export default function LastNews({
                   tagClass={tagClass}
                   textHatColor={textHatColor}
                   isMoreThanTwo={lastNews.length > 2}
+                  withCategories={withCategories}
                 />
               ))}
         </div>
@@ -219,6 +223,7 @@ export function PostCard({
   placeholderVal,
   tagClass,
   isMoreThanTwo,
+  withCategories = true,
 }: IPostCardProps) {
   const [stateDocument, setStateDocument] = useState(false);
   let [postData, setPostData] = useState(post);
@@ -342,7 +347,7 @@ export function PostCard({
                 )}
               </>
             )}
-            <a href={postData.uri || postData.link || ''} className="flex flex-col">
+            <a href={postData.uri || postData.link || ''} className="flex flex-1 flex-col">
               <div className={'md-mw:mt-2 flex flex-1 flex-col justify-between p-0 group-open:p-4 md:px-6'}>
                 {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) &&
                   postData &&
@@ -368,7 +373,7 @@ export function PostCard({
                       );
                   })}
 
-                {!postData?.hat && postData && postData?.category && (
+                {withCategories && !postData?.hat && postData && postData?.category && (
                   <div className="mb-2">
                     <span
                       className={classNames(
@@ -397,6 +402,7 @@ export function PostCard({
                     </span>
                   </div>
                 )}
+
                 <div
                   className={classNames(
                     'flex-1 text-xl font-semibold ',
@@ -409,6 +415,7 @@ export function PostCard({
                 >
                   {postData.title}
                 </div>
+
                 {postData?.excerpt && (
                   <p
                     className={classNames(
@@ -425,13 +432,7 @@ export function PostCard({
                 )}
 
                 {!horizontal && displayAuthor && (
-                  <div
-                    className={
-                      horizontal
-                        ? classNames('mt-4 flex items-center justify-between')
-                        : classNames('mt-1 flex items-center')
-                    }
-                  >
+                  <div className={classNames('mt-4 flex items-center justify-between')}>
                     <div
                       className="flex cursor-default items-center"
                       style={{
@@ -471,7 +472,7 @@ export function PostCard({
                           </div>
                         )}
                       <div className="flex items-center">
-                        {postData?.taxonomies?.category?.some((x: any) => x.slug == category) && (
+                        {(post?.primaryCategory?.advertisingNews || post?.advertisingNews) && (
                           <div
                             className={classNames(
                               'mr-1 flex items-center justify-center rounded-md text-sm font-normal ',
@@ -539,7 +540,7 @@ export function PostCard({
                     </div>
                     {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) && (
                       <div>
-                        <div className="mx-12 flex items-center">
+                        <div className="mx-3 flex items-center">
                           {postData?.likes != null && postData?.likes >= 5 && (
                             <p
                               className="mr-1.5 cursor-default"
@@ -576,11 +577,7 @@ export function PostCard({
             </a>
           </div>
           {horizontal && displayAuthor && (
-            <div
-              className={
-                horizontal ? classNames('mt-4 flex items-center justify-between') : classNames('mt-1 flex items-center')
-              }
-            >
+            <div className={classNames('mt-4 flex items-center justify-between')}>
               <div
                 className="flex cursor-default items-center"
                 style={{
@@ -617,7 +614,7 @@ export function PostCard({
                     </div>
                   )}
                 <div className="flex items-center">
-                  {postData?.taxonomies?.category?.some((x: any) => x.slug == category) && (
+                  {(post?.primaryCategory?.advertisingNews || post?.advertisingNews) && (
                     <div
                       className={classNames(
                         'mr-1 flex items-center justify-center rounded-md text-sm font-normal ',
@@ -685,7 +682,7 @@ export function PostCard({
               </div>
               {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) && (
                 <div>
-                  <div className="mx-12 flex items-center">
+                  <div className="mx-3 flex items-center">
                     {postData?.likes != null && postData?.likes >= 5 && (
                       <p
                         className="mr-1.5 cursor-default"

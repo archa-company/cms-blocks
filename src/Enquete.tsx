@@ -39,6 +39,7 @@ export default function EnquenteView({
     if (!isLoading) {
       try {
         let enquetes = await formSubmit(url, { id, siteId: siteId, choice: x.get('choice')?.toString() || '' });
+        console.log(enquetes);
         setIsLoading(false);
         setIsSended(true);
         setListInputs([
@@ -50,8 +51,10 @@ export default function EnquenteView({
             }
           }),
         ]);
+        return;
       } catch (error) {
         setIsLoading(false);
+        return;
       }
     }
   };

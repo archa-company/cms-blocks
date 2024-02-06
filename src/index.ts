@@ -7,6 +7,8 @@ import LastNews from './LastNews';
 import Group from './Group';
 import DetailtsView from './Detailts';
 import CategoriesHeader from './CategoriesHeader';
+import BannerView from './BannerView';
+import Sponsors from './Sponsors';
 
 export {
   EnquenteView,
@@ -18,4 +20,6 @@ export {
   Group,
   DetailtsView,
   CategoriesHeader,
+  BannerView,
+  Sponsors,
 };

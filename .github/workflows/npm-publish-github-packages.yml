@@ -27,4 +27,4 @@ jobs:
       - uses: actions/setup-node@v3
       - run: npm ci
       - run: npm run build
-      - run: npm publish
+      - run: npm publish --access public

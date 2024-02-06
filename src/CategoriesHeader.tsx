@@ -40,98 +40,100 @@ export default function CategoriesHeader({
             <img src={image}></img>
           </a>
         </LogoHeaderBlock>
-        <MenuHeaderBlock>
-          <MenuBlock>
-            <div className="desk">
-              {categories.slice(0, 3).map((x, y) => {
-                return (
-                  <MenuHeaderItemBlock
-                    as="a"
-                    href={x.url}
-                    continue={y != categories.length - 1}
-                    fontColor={color}
-                    lineBarColor={lineBarColor}
-                  >
-                    {x.name}
-                  </MenuHeaderItemBlock>
-                );
-              })}
-              {categories.length > 3 && (
-                <>
-                  <MenuGroupButton
-                    opended={open}
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-                      <path
-                        d="M17 14l-5-5-5 5z"
-                        className="cls-1"
-                        data-name="Caminho 221"
-                        fill={lineBarColor ?? 'white'}
-                      ></path>
-                    </svg>
-                  </MenuGroupButton>
-                  <MenuGroupBlock opended={open} backgroundColor={backgroundColor}>
-                    {categories.slice(3, categories.length).map((x, y) => {
-                      return (
-                        <MenuHeaderItemBlock
-                          continue={false}
-                          as="a"
-                          href={x.url}
-                          fontColor={color}
-                          lineBarColor={lineBarColor}
-                        >
-                          {x.name}
-                        </MenuHeaderItemBlock>
-                      );
-                    })}
-                  </MenuGroupBlock>
-                </>
-              )}
-            </div>
-            <div className="mobile">
-              {categories.length > 0 && (
-                <>
-                  <MenuGroupButton
-                    opended={open}
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                    haveContentLeft
-                    buttonMobileColor={buttonMobileColor}
-                  >
-                    <span style={{ color }}>{textMore ?? 'Mais'}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-                      <path
-                        d="M17 14l-5-5-5 5z"
-                        className="cls-1"
-                        data-name="Caminho 221"
-                        fill={lineBarColor ?? 'white'}
-                      ></path>
-                    </svg>
-                  </MenuGroupButton>
-                  <MenuGroupBlock opended={open} backgroundColor={backgroundColor}>
-                    {categories.map((x, y) => {
-                      return (
-                        <MenuHeaderItemBlock
-                          continue={false}
-                          as="a"
-                          href={x.url}
-                          fontColor={color}
-                          lineBarColor={lineBarColor}
-                        >
-                          {x.name}
-                        </MenuHeaderItemBlock>
-                      );
-                    })}
-                  </MenuGroupBlock>
-                </>
-              )}
-            </div>
-          </MenuBlock>
-        </MenuHeaderBlock>
+        {categories?.length > 0 && (
+          <MenuHeaderBlock>
+            <MenuBlock>
+              <div className="desk">
+                {categories?.slice(0, 3).map((x, y) => {
+                  return (
+                    <MenuHeaderItemBlock
+                      as="a"
+                      href={x.url}
+                      continue={y != categories.length - 1}
+                      fontColor={color}
+                      lineBarColor={lineBarColor}
+                    >
+                      {x.name}
+                    </MenuHeaderItemBlock>
+                  );
+                })}
+                {categories?.length > 3 && (
+                  <>
+                    <MenuGroupButton
+                      opended={open}
+                      onClick={() => {
+                        setOpen(!open);
+                      }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <path
+                          d="M17 14l-5-5-5 5z"
+                          className="cls-1"
+                          data-name="Caminho 221"
+                          fill={lineBarColor ?? 'white'}
+                        ></path>
+                      </svg>
+                    </MenuGroupButton>
+                    <MenuGroupBlock opended={open} backgroundColor={backgroundColor}>
+                      {categories.slice(3, categories.length).map((x, y) => {
+                        return (
+                          <MenuHeaderItemBlock
+                            continue={false}
+                            as="a"
+                            href={x.url}
+                            fontColor={color}
+                            lineBarColor={lineBarColor}
+                          >
+                            {x.name}
+                          </MenuHeaderItemBlock>
+                        );
+                      })}
+                    </MenuGroupBlock>
+                  </>
+                )}
+              </div>
+              <div className="mobile">
+                {categories.length > 0 && (
+                  <>
+                    <MenuGroupButton
+                      opended={open}
+                      onClick={() => {
+                        setOpen(!open);
+                      }}
+                      haveContentLeft
+                      buttonMobileColor={buttonMobileColor}
+                    >
+                      <span style={{ color }}>{textMore ?? 'Mais'}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <path
+                          d="M17 14l-5-5-5 5z"
+                          className="cls-1"
+                          data-name="Caminho 221"
+                          fill={lineBarColor ?? 'white'}
+                        ></path>
+                      </svg>
+                    </MenuGroupButton>
+                    <MenuGroupBlock opended={open} backgroundColor={backgroundColor}>
+                      {categories.map((x, y) => {
+                        return (
+                          <MenuHeaderItemBlock
+                            continue={false}
+                            as="a"
+                            href={x.url}
+                            fontColor={color}
+                            lineBarColor={lineBarColor}
+                          >
+                            {x.name}
+                          </MenuHeaderItemBlock>
+                        );
+                      })}
+                    </MenuGroupBlock>
+                  </>
+                )}
+              </div>
+            </MenuBlock>
+          </MenuHeaderBlock>
+        )}
       </CategoriesHeaderBlock>
     </CategoriesHeaderHolderBlock>
   );
@@ -274,7 +276,8 @@ const MenuGroupButton = styled.div<{ opended: boolean; haveContentLeft?: boolean
 
 const MenuGroupBlock = styled.div<{ opended: boolean; backgroundColor?: string }>`
   position: absolute;
-  overflow-y: hidden;
+  overflow-y: scroll;
+  max-height: calc(100vh / 2);
   transition: transform 0.1s ease-out;
   transform: scaleY(${(props) => (props.opended ? '1' : '0')});
   ${(props) => (props.opended ? 'height: auto;' : '')}
@@ -285,7 +288,7 @@ const MenuGroupBlock = styled.div<{ opended: boolean; backgroundColor?: string }
   background-color: ${(props) => props.backgroundColor ?? 'var(--primary-color)' ?? 'black'};
   border: 1px solid #2a2a2a;
   width: 300px;
-  z-index: 100;
+  z-index: 9;
   margin-top: 20px;
   display: flex;
   flex-direction: column;

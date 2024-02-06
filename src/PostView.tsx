@@ -114,7 +114,7 @@ export default function PostView({
         <div
           className="mb-5"
           style={{
-            height: '454px',
+            height: 'calc(100dvh * 0.4)',
             width: '100%',
             overflow: 'hidden',
             position: 'relative',

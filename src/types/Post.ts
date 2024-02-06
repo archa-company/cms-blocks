@@ -17,6 +17,7 @@ export interface PostNews {
   thumbnail?: string;
   externalId?: number;
   seoDescription?: string;
+  advertisingNews?: boolean;
   uri?: string;
   className?: string;
   id?: number;
@@ -41,6 +42,7 @@ export interface PostNews {
     }[];
   };
   category?: string;
+  primaryCategory?: any;
   credit?: {
     id?: number;
     name?: string;

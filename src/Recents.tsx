@@ -60,16 +60,17 @@ export default function RecentsView({
                   style={{
                     backgroundColor: backgroundColor || 'var(--primary-color)',
                     marginLeft: '-11px',
-                    padding: '5px 8px',
+                    padding: '0px 8px',
                     ...titleClass,
                   }}
                 >
                   <p
                     className="text-[22px] font-semibold sm:text-lg"
                     style={{ color: color || 'black', ...titleChildClass }}
-                  >
-                    {x.title}
-                  </p>
+                    dangerouslySetInnerHTML={{
+                      __html: x.title,
+                    }}
+                  ></p>
                   {x.author && <p>{x.author.name}</p>}
                 </div>
               </div>

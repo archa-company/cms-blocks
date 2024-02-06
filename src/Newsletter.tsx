@@ -125,7 +125,7 @@ export default function NewsLetterView({
           toast.success('Dados enviados!');
         }, 2000);
         //toast
-        return false;
+        return 'OI';
       }
     };
   return (
