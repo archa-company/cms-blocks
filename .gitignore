@@ -120,3 +120,6 @@ dist
 .pnp.*
 .idea/
 .lib
+
+.npmrc
+..npmrc

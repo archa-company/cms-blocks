@@ -412,9 +412,8 @@ export function PostCard({
                   style={{
                     color: textColor ?? '',
                   }}
-                >
-                  {postData.title}
-                </div>
+                  dangerouslySetInnerHTML={{ __html: postData.title }}
+                ></div>
 
                 {postData?.excerpt && (
                   <p
@@ -472,7 +471,7 @@ export function PostCard({
                           </div>
                         )}
                       <div className="flex items-center">
-                        {(post?.primaryCategory?.advertisingNews || post?.advertisingNews) && (
+                        {(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) && (
                           <div
                             className={classNames(
                               'mr-1 flex items-center justify-center rounded-md text-sm font-normal ',
@@ -614,7 +613,7 @@ export function PostCard({
                     </div>
                   )}
                 <div className="flex items-center">
-                  {(post?.primaryCategory?.advertisingNews || post?.advertisingNews) && (
+                  {(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) && (
                     <div
                       className={classNames(
                         'mr-1 flex items-center justify-center rounded-md text-sm font-normal ',
