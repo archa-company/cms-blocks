@@ -4,9 +4,10 @@ import classNames from 'classnames';
 interface ISponsor {
   classData?: string;
   categorie?: string;
+  imageStaticUrl?: string;
 }
 
-export default async function Sponsors({ classData, categorie }: ISponsor) {
+export default async function Sponsors({ classData, categorie, imageStaticUrl }: ISponsor) {
   const taxo = await getAllSponsors(categorie || '');
 
   if (!taxo) return;
@@ -39,6 +40,7 @@ export default async function Sponsors({ classData, categorie }: ISponsor) {
                     objectFit="cover"
                     placeholder="blur"
                     blurDataURL={'/assets/miniatura_compartilhamento.png'}
+                    imageStaticUrl={imageStaticUrl}
                   ></ImageComponent>
                 </div>
                 <div className="text-center">{x?.name_sponsorship}</div>

@@ -27,6 +27,7 @@ export interface IPostViewProps {
   errorSrc: string;
   postContentClass?: string;
   buttonClass?: string;
+  imageStaticUrl?: string;
 }
 export interface ICreditProps {
   id: number;
@@ -49,6 +50,7 @@ export default function PostView({
   errorSrc,
   postContentClass,
   buttonClass,
+  imageStaticUrl,
 }: IPostViewProps) {
   let [isDocument, setDocument] = useState(false);
   let [liked, setLiked] = useState(false);
@@ -140,6 +142,7 @@ export default function PostView({
             loading="lazy"
             blurDataURL={errorSrc}
             placeholder="blur"
+            imageStaticUrl={imageStaticUrl}
           />
         </div>
       </a>
@@ -174,6 +177,7 @@ export default function PostView({
                   loading="lazy"
                   blurDataURL={errorSrc}
                   placeholder="blur"
+                  imageStaticUrl={imageStaticUrl}
                 />
               </div>
             )}

@@ -55,6 +55,7 @@ export interface LastNewsOptionsProps {
   tagClass?: string;
   isMoreThanTwo?: boolean;
   withCategories?: boolean;
+  imageStaticUrl?: string;
 }
 
 export default function LastNews({
@@ -86,6 +87,7 @@ export default function LastNews({
   textHatColor,
   isMoreThanTwo,
   withCategories,
+  imageStaticUrl,
 }: LastNewsProps) {
   if (!lastNews?.length && !posts?.length)
     return <span className="text-base underline">Não foi possível listar últimas notícias</span>;
@@ -125,6 +127,7 @@ export default function LastNews({
                 textHatColor={textHatColor}
                 isMoreThanTwo={posts.length > 2}
                 withCategories={withCategories}
+                imageStaticUrl={imageStaticUrl}
               />
             ))}
         </div>
@@ -187,6 +190,7 @@ export default function LastNews({
                   textHatColor={textHatColor}
                   isMoreThanTwo={lastNews.length > 2}
                   withCategories={withCategories}
+                  imageStaticUrl={imageStaticUrl}
                 />
               ))}
         </div>
@@ -224,6 +228,7 @@ export function PostCard({
   tagClass,
   isMoreThanTwo,
   withCategories = true,
+  imageStaticUrl,
 }: IPostCardProps) {
   const [stateDocument, setStateDocument] = useState(false);
   let [postData, setPostData] = useState(post);
@@ -302,6 +307,7 @@ export function PostCard({
         objectFit="cover"
         placeholder="blur"
         blurDataURL={errorSrc}
+        imageStaticUrl={imageStaticUrl}
       />
     </div>
   );
@@ -349,7 +355,7 @@ export function PostCard({
             )}
             <a href={postData.uri || postData.link || ''} className="flex flex-1 flex-col">
               <div className={'md-mw:mt-2 flex flex-1 flex-col justify-between p-0 group-open:p-4 md:px-6'}>
-                {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) &&
+                {!(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) &&
                   postData &&
                   !postData.hat &&
                   !postData?.category &&
@@ -438,10 +444,10 @@ export function PostCard({
                         color: textColor ?? '',
                       }}
                     >
-                      {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) &&
+                      {!(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) &&
                         (postData?.taxonomies?.credit?.length > 0 || postData?.credit.length > 0) && (
                           <div className="mr-2 overflow-hidden" style={{ height: 27, width: 27 }}>
-                            {postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url ? (
+                            {postData?.taxonomies?.credit[0]?.url ? (
                               <>
                                 <ImageComponent
                                   src={postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url}
@@ -463,6 +469,29 @@ export function PostCard({
                                     e.currentTarget.srcset = errorSrc;
                                     e.currentTarget.src = errorSrc;
                                   }}
+                                  imageStaticUrl={imageStaticUrl}
+                                />
+                              </>
+                            ) : !!postData?.credit ? (
+                              <>
+                                <ImageComponent
+                                  src={postData?.credit[0]?.url}
+                                  alt={postData?.credit[0]?.name as string}
+                                  width={27}
+                                  height={27}
+                                  style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                    objectPosition: 'center',
+                                  }}
+                                  className="overflow-hidden rounded-full"
+                                  onError={(e: any) => {
+                                    e.currentTarget.onerror = null;
+                                    e.currentTarget.srcset = errorSrc;
+                                    e.currentTarget.src = errorSrc;
+                                  }}
+                                  imageStaticUrl={imageStaticUrl}
                                 />
                               </>
                             ) : (
@@ -537,7 +566,7 @@ export function PostCard({
                         )}
                       </div>
                     </div>
-                    {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) && (
+                    {!(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) && (
                       <div>
                         <div className="mx-3 flex items-center">
                           {postData?.likes != null && postData?.likes >= 5 && (
@@ -583,7 +612,7 @@ export function PostCard({
                   color: textColor ?? '',
                 }}
               >
-                {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) &&
+                {!(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) &&
                   (postData?.taxonomies?.credit?.length > 0 || postData?.credit?.length > 0) && (
                     <div className="mr-2 overflow-hidden" style={{ height: 27, width: 27 }}>
                       {postData?.taxonomies?.credit[0]?.url || postData?.credit[0]?.url ? (
@@ -606,6 +635,7 @@ export function PostCard({
                             e.currentTarget.srcset = errorSrc;
                             e.currentTarget.src = errorSrc;
                           }}
+                          imageStaticUrl={imageStaticUrl}
                         />
                       ) : (
                         <div>{Logo}</div>
@@ -679,7 +709,7 @@ export function PostCard({
                   )}
                 </div>
               </div>
-              {!postData?.taxonomies?.category?.some((x: any) => x.slug == category) && (
+              {!(post?.primaryCategory?.meta?.is_advertising_category || post?.advertisingNews) && (
                 <div>
                   <div className="mx-3 flex items-center">
                     {postData?.likes != null && postData?.likes >= 5 && (
