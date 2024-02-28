@@ -1,5 +1,5 @@
 {
-  "name": "cms-blocks",
+  "name": "@archa-company/cms-blocks",
   "version": "1.0.54",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -15,8 +15,9 @@
     "semantic-release": "semantic-release"
   },
   "publishConfig": {
-        "registry": "https://npm.pkg.github.com/archa-company"
-      },
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/@archa-company"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
