@@ -1,6 +1,6 @@
 {
   "name": "@archa-company/cms-blocks",
-  "version": "1.0.54",
+  "version": "1.1.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
