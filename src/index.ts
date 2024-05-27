@@ -9,6 +9,7 @@ import DetailtsView from './Detailts';
 import CategoriesHeader from './CategoriesHeader';
 import BannerView from './BannerView';
 import Sponsors from './Sponsors';
+import BannerSlide from './BannerSlider';
 
 export {
   EnquenteView,
@@ -22,4 +23,5 @@ export {
   CategoriesHeader,
   BannerView,
   Sponsors,
+  BannerSlide
 };
