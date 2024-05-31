@@ -187,6 +187,7 @@ export default function BannerSlide(props: IBannerSlide) {
             src={props.posts[imageIndex].thumbnail}
             alt={''}
             fill
+            imageSizeW={1080}
             className="absolute top-0 left-0 right-0 z-10 h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
           ></ImageComponent>
         </motion.div>
