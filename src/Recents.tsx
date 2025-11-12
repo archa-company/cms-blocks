@@ -1,4 +1,5 @@
 'use client';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { PostNews } from './types/Post';
 import classNames from 'classnames';
@@ -32,6 +33,35 @@ export default function RecentsView({
   titleChildClass,
   postBlockClass,
 }: IRecentsView) {
+  // Ordena por data mais recente -> mais antiga (equivalente a ORDER BY post_date DESC)
+  const ordered = useMemo(() => {
+    const arr = Array.isArray(posts) ? [...posts] : [];
+
+    const getTimestamp = (p: any): number => {
+      // Tenta múltiplos campos comuns de data
+      const v =
+        p?.date ??
+        p?.createdAt ??
+        p?.publishedAt ??
+        p?.post_date ??
+        p?.postDate ??
+        null;
+
+      // Suporta string ISO, Date ou objetos com .date
+      const raw =
+        typeof v === 'string'
+          ? v
+          : v instanceof Date
+          ? v.toISOString()
+          : (v?.date as string) ?? '';
+
+      const ts = Date.parse(raw);
+      return Number.isNaN(ts) ? 0 : ts;
+    };
+
+    return arr.sort((a, b) => getTimestamp(b) - getTimestamp(a));
+  }, [posts]);
+
   return (
     <TopRecentsBlock
       className={`top-recents md-mw:w-full my-8 flex flex-col ${
@@ -43,16 +73,16 @@ export default function RecentsView({
     >
       <p>{title || 'Mais recentes da semana'}</p>
       <TopRecentsBox className="top-recents-box flex w-full flex-col">
-        {posts?.map((x, y) => (
+        {ordered.map((x, y) => (
           <div key={y}>
-            <a href={x.uri || x.link} key={y}>
+            <a href={x.uri || (x as any).link} key={y}>
               <div className={classNames('my-5 flex flex-auto', postBlockClass)}>
                 <div className="inline-block">
-                  {leftBallFunc != null ? (
+                  {leftBallFunc ? (
                     leftBallFunc(y + 1)
                   ) : (
                     <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-full bg-black text-center font-bold text-white">
-                      <p className=" m-auto p-0 text-center">{y + 1}</p>{' '}
+                      <p className="m-auto p-0 text-center">{y + 1}</p>
                     </div>
                   )}
                 </div>
@@ -68,14 +98,14 @@ export default function RecentsView({
                     className="text-[22px] font-semibold sm:text-lg"
                     style={{ color: color || 'black', ...titleChildClass }}
                     dangerouslySetInnerHTML={{
-                      __html: x.title,
+                      __html: (x as any).title,
                     }}
                   ></p>
-                  {x.author && <p>{x.author.name}</p>}
+                  {(x as any).author && <p>{(x as any).author.name}</p>}
                 </div>
               </div>
             </a>
-            {y !== posts.length - 1 ? (
+            {y !== ordered.length - 1 ? (
               <div className="flex justify-center">
                 <div
                   style={{
