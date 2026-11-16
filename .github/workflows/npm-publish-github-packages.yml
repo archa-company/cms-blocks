@@ -18,6 +18,8 @@ jobs:
 
   publish-gpr:
     needs: build
+    # Publica apenas a partir da main; nas outras branches roda só o build e os testes.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
