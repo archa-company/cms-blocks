@@ -51,6 +51,7 @@ Para cada opção encontrada, anote: fonte, empresa, tipo (avião, ônibus, caro
 - Viagem de até 5 horas: qualquer categoria serve, mas prefira executivo ou superior.
 - No Buser e em fretamentos, confira o nome real da poltrona (ex.: "Cama", "Leito Individual") em vez de confiar no rótulo do filtro.
 - Carona no BlaBlaCar acima de 5 horas entra apenas como alternativa, nunca como recomendação principal, a não ser que seja muito mais barata e o usuário tenha aceitado esse tipo de viagem.
+- **BlaBlaCar não pode virar a noite.** Descarte qualquer carona que esteja em andamento entre meia-noite e 5h (por exemplo, sai às 22h e chega às 3h, ou sai às 4h). Ela pode aparecer só na lista de descartadas.
 
 ### Horário
 
@@ -85,7 +86,7 @@ Responda em português, com texto direto e natural, sem travessões e sem exager
    - Mais rápida
    - Melhor custo-benefício geral (recomendação)
 4. **Ônibus x avião**: uma comparação curta considerando preço, tempo total porta a porta e se a viagem noturna economiza uma diária de hotel.
-5. **Descartadas**: lista curta do que ficou de fora e por quê (categoria abaixo de leito, horário ruim, conexão longa).
+5. **Descartadas**: lista curta do que ficou de fora e por quê (categoria abaixo de leito, carona que vira a noite, horário ruim, conexão longa).
 6. **Status das fontes**: uma linha por site dizendo se foi consultado, se não opera o trecho ou se falhou.
 7. **Links** para cada opção recomendada.
 
