@@ -18,6 +18,14 @@ Antes de buscar, confirme que você tem:
 
 Se faltar origem, destino ou data, pergunte antes de começar. O resto pode seguir o padrão.
 
+### Destino sem aeroporto grande: rotas combinadas
+
+Quando o destino é uma cidade do interior ou tem poucos voos, monte também rotas combinadas: voo até um aeroporto próximo e ônibus ou carona até o destino final.
+
+- Liste os aeroportos num raio razoável (até umas 6h de estrada) e busque voos para todos. Exemplo para Criciúma-SC: JJG (Jaguaruna, o mais perto), FLN, POA, NVT, JOI e CWB.
+- Para cada aeroporto, busque o transporte complementar até o destino nas mesmas fontes de ônibus e no BlaBlaCar, e confira se o horário de chegada do voo encaixa com uma saída razoável (pelo menos 1h30 de folga entre pouso e embarque, contando o deslocamento até a rodoviária).
+- Compare a rota combinada pelo **preço somado** e pelo **tempo total porta a porta**, lado a lado com o ônibus direto. As regras de categoria e horário valem para cada perna.
+
 ## 2. Fontes obrigatórias
 
 Consulte **todas** as fontes, sempre:
@@ -37,6 +45,7 @@ Os formatos de URL mudam com frequência. Se um link montado não funcionar, abr
 ### Como acessar
 
 1. **Navegador primeiro.** Esses sites carregam os resultados via JavaScript. Se houver um navegador disponível (Claude in Chrome, navegador embutido ou Playwright/Chromium no ambiente), use-o para abrir a busca, esperar os resultados e ler a lista. Carregue a skill do navegador correspondente antes do primeiro uso.
+   O Google Flights costuma mostrar captcha e o BlaBlaCar devolve 403 para navegador automático em servidor. Nesse caso use o Claude in Chrome do usuário, se estiver conectado, ou recorra a Kayak, Skyscanner e aos sites das companhias aéreas.
 2. **Sem navegador:** use WebFetch nas URLs de busca e WebSearch (ex.: `passagem ônibus São Paulo Curitiba 12/12 leito clickbus`) para achar preços publicados.
 3. **Nunca invente dados.** Se uma fonte não carregar, bloquear acesso ou não tiver o trecho, registre isso no relatório ("Wemobi: não opera o trecho" ou "FlixBus: página não carregou"). Preço sem fonte verificada não entra na tabela.
 4. **Não compre nada** e não preencha dados pessoais. A skill só pesquisa e compara.
